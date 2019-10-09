@@ -52,7 +52,7 @@ class {{ service.name }}Meta(type):
         return next(iter(cls._transport_registry.values()))
 
 
-class {{ service.name }}(metaclass={{ service.name }}Meta):
+class {{ service.name }}Client(metaclass={{ service.name }}Meta):
     """{{ service.meta.doc|rst(width=72, indent=4) }}"""
     def __init__(self, *,
             host: str{% if service.host %} = '{{ service.host }}'{% endif %},
@@ -214,6 +214,6 @@ except pkg_resources.DistributionNotFound:
 
 
 __all__ = (
-    '{{ service.name }}',
+    '{{ service.name }}Client',
 )
 {% endblock %}
