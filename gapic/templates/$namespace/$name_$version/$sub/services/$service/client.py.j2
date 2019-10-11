@@ -145,11 +145,7 @@ class {{ service.name }}Client(metaclass={{ service.name }}Meta):
             self._transport.{{ method.name|snake_case }},
             default_retry=retries.Retry(predicate=retries.if_exception_type(
                 {%- if method.idempotent %}
-                exceptions.Aborted,
-                {%- endif %}
                 exceptions.ServiceUnavailable,
-                {%- if method.idempotent %}
-                exceptions.Unknown,
                 {%- endif %}
             )),
             default_timeout=None,
